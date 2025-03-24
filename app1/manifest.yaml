@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: naveen/app1:1.1
+        image: app1:1.1
         ports:
         - containerPort: 80
 ---
