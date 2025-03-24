@@ -1,7 +1,7 @@
 # Ingress Controller
 
 REGION_CODE=us-east-1
-CLUSTER_NAME=expense
+CLUSTER_NAME=naveenrajoli
 ACC_ID=315069654700
 
 ### Permissions
