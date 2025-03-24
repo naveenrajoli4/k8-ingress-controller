@@ -43,7 +43,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:135808959960:certificate/2e416869-14f8-43ec-8cc0-efe00369c7f3
-    alb.ingress.kubernetes.io/group.name: expense-ingress-group-ALB
+    alb.ingress.kubernetes.io/group.name: expense-ingress-group-alb
 spec:
   ingressClassName: alb
   rules:
