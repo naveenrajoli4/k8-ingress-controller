@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: app2-deployment
+    # labels of deployment resource
+  labels:
+    app: app2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+      - name: nginx-app2
+        image: naveenrajoli/app2:1.2
+        ports:
+        - containerPort: 80
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2-deployment-svc
+spec:
+  selector:
+    app: app2
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app2-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:135808959960:certificate/2e416869-14f8-43ec-8cc0-efe00369c7f3
+    alb.ingress.kubernetes.io/group.name: expense-ingress-group-alb
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "app2.naveenrajoli.site"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: app2-deployment-svc
+            port:
+              number: 80
+
+
+
+
